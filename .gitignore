@@ -1,0 +1,3 @@
+# Zig generated files
+.zig-cache
+zig-out
