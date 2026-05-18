@@ -7,15 +7,15 @@ const y: i32 = 2;
 const z: i32 = 3;
 
 test "Vec3.init()" {
-    const v = Vec3.init(x, y, z);
+    const v = Vec3(i32).init(x, y, z);
     try expect(v.x == x);
     try expect(v.y == y);
     try expect(v.z == z);
 }
 
 test "Vec3.add()" {
-    var v1 = Vec3.init(x, y, z);
-    const v2 = Vec3.init(x, y, z);
+    var v1 = Vec3(i32).init(x, y, z);
+    const v2 = Vec3(i32).init(x, y, z);
 
     v1.add(v2);
     print("V1: x={}, y={}, z={}\n", .{ v1.x, v1.y, v1.z });
@@ -26,10 +26,10 @@ test "Vec3.add()" {
 }
 
 test "Vec3.Add()" {
-    const v1 = Vec3.init(x, y, z);
-    const v2 = Vec3.init(x, y, z);
+    const v1 = Vec3(i32).init(x, y, z);
+    const v2 = Vec3(i32).init(x, y, z);
 
-    const v_res = Vec3.Add(v1, v2);
+    const v_res = Vec3(i32).Add(v1, v2);
 
     print("V_RES: x={}, y={}, z={}\n", .{ v_res.x, v_res.y, v_res.z });
 
