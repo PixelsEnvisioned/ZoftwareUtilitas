@@ -7,13 +7,16 @@ const y: i32 = 2;
 const z: i32 = 3;
 
 test "Vec3.init()" {
+    print("TEST: Vec3.init()", .{});
     const v = Vec3(i32).init(x, y, z);
     try expect(v.x == x);
     try expect(v.y == y);
     try expect(v.z == z);
+    print(" [PASS]\n", .{});
 }
 
 test "Vec3.add()" {
+    print("TEST: Vec3.add()", .{});
     var v1 = Vec3(i32).init(x, y, z);
     const v2 = Vec3(i32).init(z, y, x);
 
@@ -22,9 +25,11 @@ test "Vec3.add()" {
     try expect(v1.x == x + z);
     try expect(v1.y == y + y);
     try expect(v1.z == z + x);
+    print(" [PASS]\n", .{});
 }
 
 test "Vec3.Add()" {
+    print("TEST: Vec3.Add()", .{});
     const v1 = Vec3(i32).init(x, y, z);
     const v2 = Vec3(i32).init(z, y, x);
 
@@ -33,9 +38,11 @@ test "Vec3.Add()" {
     try expect(v_res.x == v1.x + v2.x);
     try expect(v_res.y == v1.y + v2.y);
     try expect(v_res.z == v1.z + v2.z);
+    print(" [PASS]\n", .{});
 }
 
 test "Vec3.sub()" {
+    print("TEST: Vec3.sub()", .{});
     var v1 = Vec3(i32).init(x, y, z);
     const v2 = Vec3(i32).init(z, y, x);
 
@@ -44,9 +51,11 @@ test "Vec3.sub()" {
     try expect(v1.x == x - z);
     try expect(v1.y == y - y);
     try expect(v1.z == z - x);
+    print(" [PASS]\n", .{});
 }
 
 test "Vec3.Sub()" {
+    print("TEST: Vec3.Sub()", .{});
     const v1 = Vec3(i32).init(x, y, z);
     const v2 = Vec3(i32).init(z, y, x);
 
@@ -55,4 +64,5 @@ test "Vec3.Sub()" {
     try expect(v_res.x == v1.x - v2.x);
     try expect(v_res.y == v1.y - v2.y);
     try expect(v_res.z == v1.z - v2.z);
+    print(" [PASS]\n", .{});
 }
