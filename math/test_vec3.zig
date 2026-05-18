@@ -15,25 +15,44 @@ test "Vec3.init()" {
 
 test "Vec3.add()" {
     var v1 = Vec3(i32).init(x, y, z);
-    const v2 = Vec3(i32).init(x, y, z);
+    const v2 = Vec3(i32).init(z, y, x);
 
     v1.add(v2);
-    print("V1: x={}, y={}, z={}\n", .{ v1.x, v1.y, v1.z });
 
-    try expect(v1.x == x + x);
+    try expect(v1.x == x + z);
     try expect(v1.y == y + y);
-    try expect(v1.z == z + z);
+    try expect(v1.z == z + x);
 }
 
 test "Vec3.Add()" {
     const v1 = Vec3(i32).init(x, y, z);
-    const v2 = Vec3(i32).init(x, y, z);
+    const v2 = Vec3(i32).init(z, y, x);
 
     const v_res = Vec3(i32).Add(v1, v2);
-
-    print("V_RES: x={}, y={}, z={}\n", .{ v_res.x, v_res.y, v_res.z });
 
     try expect(v_res.x == v1.x + v2.x);
     try expect(v_res.y == v1.y + v2.y);
     try expect(v_res.z == v1.z + v2.z);
+}
+
+test "Vec3.sub()" {
+    var v1 = Vec3(i32).init(x, y, z);
+    const v2 = Vec3(i32).init(z, y, x);
+
+    v1.sub(v2);
+
+    try expect(v1.x == x - z);
+    try expect(v1.y == y - y);
+    try expect(v1.z == z - x);
+}
+
+test "Vec3.Sub()" {
+    const v1 = Vec3(i32).init(x, y, z);
+    const v2 = Vec3(i32).init(z, y, x);
+
+    const v_res = Vec3(i32).Sub(v1, v2);
+
+    try expect(v_res.x == v1.x - v2.x);
+    try expect(v_res.y == v1.y - v2.y);
+    try expect(v_res.z == v1.z - v2.z);
 }
