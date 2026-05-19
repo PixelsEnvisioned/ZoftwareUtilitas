@@ -66,3 +66,31 @@ test "Vec3.Sub()" {
     try expect(v_res.z == v1.z - v2.z);
     print(" [PASS]\n", .{});
 }
+
+test "Vec3.scale()" {
+    print("TEST: Vec3.scale()", .{});
+    var v = Vec3(i32).init(x, y, z);
+    const factor: i32 = z;
+
+    v.scale(factor);
+
+    try expect(v.x == x * factor);
+    try expect(v.y == y * factor);
+    try expect(v.z == z * factor);
+
+    print(" [PASS]\n", .{});
+}
+
+test "Vec3.Scale()" {
+    print("TEST: Vec3.Scale()", .{});
+    const v = Vec3(i32).init(x, y, z);
+    const factor: i32 = z;
+
+    const res_vec = Vec3(i32).Scale(v, factor);
+
+    try expect(res_vec.x == x * factor);
+    try expect(res_vec.y == y * factor);
+    try expect(res_vec.z == z * factor);
+
+    print(" [PASS]\n", .{});
+}

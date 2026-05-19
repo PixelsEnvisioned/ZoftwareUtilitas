@@ -40,5 +40,19 @@ pub fn Vec3(comptime T: type) type {
                 v1.z - v2.z,
             );
         }
+
+        pub fn scale(self: *Self, factor: T) void {
+            self.x *= factor;
+            self.y *= factor;
+            self.z *= factor;
+        }
+
+        pub fn Scale(v: Vec3(T), factor: T) Vec3(T) {
+            return Vec3(T).init(
+                v.x * factor,
+                v.y * factor,
+                v.z * factor,
+            );
+        }
     };
 }
