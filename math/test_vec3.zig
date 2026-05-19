@@ -94,3 +94,16 @@ test "Vec3.Scale()" {
 
     print(" [PASS]\n", .{});
 }
+
+test "Vec3.Dot()" {
+    print("TEST: Vec3.Dot()", .{});
+    const v1 = Vec3(i32).init(x, y, z);
+    const v2 = Vec3(i32).init(z, y, x);
+
+    const dot_res = Vec3(i32).Dot(v1, v2);
+    const test_res = (x * z) + (y * y) + (z * x);
+
+    try expect(dot_res == test_res);
+
+    print(" [PASS]\n", .{});
+}

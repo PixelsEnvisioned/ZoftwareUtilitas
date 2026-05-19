@@ -54,5 +54,9 @@ pub fn Vec3(comptime T: type) type {
                 v.z * factor,
             );
         }
+
+        pub fn Dot(v1: Vec3(T), v2: Vec3(T)) T {
+            return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+        }
     };
 }
