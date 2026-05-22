@@ -1,4 +1,6 @@
+const std = @import("std");
 const Vec4 = @import("vec4.zig").Vec4;
+const Vec3 = @import("vec4.zig").Vec3;
 const expectEqual = @import("std").testing.expectEqual;
 
 const T = i32;
@@ -24,4 +26,14 @@ test "Vec4.init() with w > 1" {
     try expectEqual(v.y, @divFloor(y, w));
     try expectEqual(v.z, @divFloor(z, w));
     try expectEqual(v.w, 1);
+}
+
+test "Vec4 init from Vec3" {
+    const v3 = Vec3(T).init(1, 2, 3);
+    const v4 = Vec4(T).init_Vec3(v3);
+
+    try expectEqual(v4.x, v3.x);
+    try expectEqual(v4.y, v3.y);
+    try expectEqual(v4.z, v3.z);
+    try expectEqual(v4.w, 1);
 }
