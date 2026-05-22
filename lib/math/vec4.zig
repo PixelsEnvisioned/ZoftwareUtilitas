@@ -49,12 +49,7 @@ pub fn Vec4(comptime T: type) type {
         }
 
         pub fn init_Vec3(v: Vec3(T)) Vec4(T) {
-            return Vec4(T).init{
-                .x = v.x,
-                .y = v.y,
-                .z = v.z,
-                .w = 1,
-            };
+            return Vec4(T).init(v.x, v.y, v.z, 1);
         }
     };
 }
