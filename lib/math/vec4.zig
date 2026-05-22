@@ -1,8 +1,19 @@
 const std = @import("std");
 
 // temp, for compatability
-fn Vec3(comptime T: type) type {
-    return struct { x: T, y: T, z: T };
+pub fn Vec3(comptime T: type) type {
+    return struct {
+        x: T,
+        y: T,
+        z: T,
+        pub fn init(x: T, y: T, z: T) Vec3(T) {
+            return Vec3(T){
+                .x = x,
+                .y = y,
+                .z = z,
+            };
+        }
+    };
 }
 
 pub fn Vec4(comptime T: type) type {
