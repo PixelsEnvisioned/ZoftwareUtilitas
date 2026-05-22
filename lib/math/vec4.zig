@@ -15,12 +15,26 @@ pub fn Vec4(comptime T: type) type {
         w: T,
 
         pub fn init(x: T, y: T, z: T, w: T) @This() {
-            return @This(){
-                .x = x,
-                .y = y,
-                .z = z,
-                .w = w,
-            };
+            // TODO: w == 0
+            // TODO: overflow division
+            var res: @This() = undefined;
+            if (@typeInfo(T) == .int) {
+                res = @This(){
+                    .x = @divFloor(x, w),
+                    .y = @divFloor(y, w),
+                    .z = @divFloor(z, w),
+                    .w = 1,
+                };
+            } else {
+                res = @This(){
+                    .x = x / w,
+                    .y = y / w,
+                    .z = z / w,
+                    .w = 1,
+                };
+            }
+
+            return res;
         }
 
         pub fn init_Vec3(v: @This()) @This() {
