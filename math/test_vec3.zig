@@ -156,7 +156,7 @@ test "Vec3.Mul()" {
     print(" [PASS]\n", .{});
 }
 
-test "Vec3.dul()" {
+test "Vec3.div()" {
     print("TEST: Vec3.div()", .{});
     var v1 = Vec3(T).init(x, y, z);
     const v2 = Vec3(T).init(z, y, x);
