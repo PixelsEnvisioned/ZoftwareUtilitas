@@ -118,6 +118,32 @@ test "Vec3.Scale()" {
     print(" [PASS]\n", .{});
 }
 
+test "Vec3.mul()" {
+    print("TEST: Vec3.mul()", .{});
+    var v1 = Vec3(T).init(x, y, z);
+    const v2 = Vec3(T).init(z, y, x);
+
+    v1.mul(v2);
+
+    try expect(v1.x == x * z);
+    try expect(v1.y == y * y);
+    try expect(v1.z == z * x);
+    print(" [PASS]\n", .{});
+}
+
+test "Vec3.Mul()" {
+    print("TEST: Vec3.Mul()", .{});
+    const v1 = Vec3(T).init(x, y, z);
+    const v2 = Vec3(T).init(z, y, x);
+
+    const res_vec = Vec3(T).Mul(v1, v2);
+
+    try expect(res_vec.x == x * z);
+    try expect(res_vec.y == y * y);
+    try expect(res_vec.z == z * x);
+    print(" [PASS]\n", .{});
+}
+
 test "Vec3.Dot()" {
     print("TEST: Vec3.Dot()", .{});
     const v1 = Vec3(T).init(x, y, z);
