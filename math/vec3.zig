@@ -13,6 +13,10 @@ pub fn Vec3(comptime T: type) type {
             };
         }
 
+        pub fn equals(self: Self, other: Vec3(T)) bool {
+            return (self.x == other.x and self.y == other.y and self.z == other.z);
+        }
+
         pub fn zero(self: *Self) void {
             self.x = @as(T, 0);
             self.y = @as(T, 0);

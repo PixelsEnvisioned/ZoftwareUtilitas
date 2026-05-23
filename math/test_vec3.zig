@@ -9,10 +9,22 @@ const z: T = 3;
 
 test "Vec3.init()" {
     print("TEST: Vec3.init()", .{});
+
     const v = Vec3(T).init(x, y, z);
+
     try expect(v.x == x);
     try expect(v.y == y);
     try expect(v.z == z);
+    print(" [PASS]\n", .{});
+}
+
+test "Vec3.equals()" {
+    print("TEST: Vec3.equals()", .{});
+    const v1 = Vec3(T).init(x, y, z);
+
+    const test_res: bool = (v1.x == v1.x and v1.y == v1.y and v1.z == v1.z);
+
+    try expect(test_res == (v1.equals(v1)));
     print(" [PASS]\n", .{});
 }
 
@@ -21,20 +33,19 @@ test "Vec3.zero()" {
     var v1 = Vec3(T).init(x, y, z);
 
     v1.zero();
+    const test_vec = Vec3(T).init(0, 0, 0);
 
-    try expect(v1.x == 0);
-    try expect(v1.y == 0);
-    try expect(v1.z == 0);
+    try expect(v1.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
 test "Vec3.Zero()" {
     print("TEST: Vec3.Zero()", .{});
-    const v1 = Vec3(T).Zero();
 
-    try expect(v1.x == 0);
-    try expect(v1.y == 0);
-    try expect(v1.z == 0);
+    const v1 = Vec3(T).Zero();
+    const test_vec = Vec3(T).init(0, 0, 0);
+
+    try expect(v1.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -44,10 +55,9 @@ test "Vec3.add()" {
     const v2 = Vec3(T).init(z, y, x);
 
     v1.add(v2);
+    const test_vec = Vec3(T).init(x + z, y + y, z + x);
 
-    try expect(v1.x == x + z);
-    try expect(v1.y == y + y);
-    try expect(v1.z == z + x);
+    try expect(v1.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -56,11 +66,10 @@ test "Vec3.Add()" {
     const v1 = Vec3(T).init(x, y, z);
     const v2 = Vec3(T).init(z, y, x);
 
-    const v_res = Vec3(T).Add(v1, v2);
+    const res_vec = Vec3(T).Add(v1, v2);
+    const test_vec = Vec3(T).init(x + z, y + y, z + x);
 
-    try expect(v_res.x == v1.x + v2.x);
-    try expect(v_res.y == v1.y + v2.y);
-    try expect(v_res.z == v1.z + v2.z);
+    try expect(res_vec.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -70,10 +79,9 @@ test "Vec3.sub()" {
     const v2 = Vec3(T).init(z, y, x);
 
     v1.sub(v2);
+    const test_vec = Vec3(T).init(x - z, y - y, z - x);
 
-    try expect(v1.x == x - z);
-    try expect(v1.y == y - y);
-    try expect(v1.z == z - x);
+    try expect(v1.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -82,11 +90,10 @@ test "Vec3.Sub()" {
     const v1 = Vec3(T).init(x, y, z);
     const v2 = Vec3(T).init(z, y, x);
 
-    const v_res = Vec3(T).Sub(v1, v2);
+    const res_vec = Vec3(T).Sub(v1, v2);
+    const test_vec = Vec3(T).init(x - z, y - y, z - x);
 
-    try expect(v_res.x == v1.x - v2.x);
-    try expect(v_res.y == v1.y - v2.y);
-    try expect(v_res.z == v1.z - v2.z);
+    try expect(res_vec.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -96,10 +103,9 @@ test "Vec3.scale()" {
     const factor: T = z;
 
     v.scale(factor);
+    const test_vec = Vec3(T).init(x * factor, y * factor, z * factor);
 
-    try expect(v.x == x * factor);
-    try expect(v.y == y * factor);
-    try expect(v.z == z * factor);
+    try expect(v.equals(test_vec));
 
     print(" [PASS]\n", .{});
 }
@@ -110,11 +116,9 @@ test "Vec3.Scale()" {
     const factor: T = z;
 
     const res_vec = Vec3(T).Scale(v, factor);
+    const test_vec = Vec3(T).init(x * factor, y * factor, z * factor);
 
-    try expect(res_vec.x == x * factor);
-    try expect(res_vec.y == y * factor);
-    try expect(res_vec.z == z * factor);
-
+    try expect(res_vec.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -124,10 +128,9 @@ test "Vec3.mul()" {
     const v2 = Vec3(T).init(z, y, x);
 
     v1.mul(v2);
+    const test_vec = Vec3(T).init(x * z, y * y, z * x);
 
-    try expect(v1.x == x * z);
-    try expect(v1.y == y * y);
-    try expect(v1.z == z * x);
+    try expect(v1.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -137,10 +140,9 @@ test "Vec3.Mul()" {
     const v2 = Vec3(T).init(z, y, x);
 
     const res_vec = Vec3(T).Mul(v1, v2);
+    const test_vec = Vec3(T).init(x * z, y * y, z * x);
 
-    try expect(res_vec.x == x * z);
-    try expect(res_vec.y == y * y);
-    try expect(res_vec.z == z * x);
+    try expect(res_vec.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -153,6 +155,5 @@ test "Vec3.Dot()" {
     const test_res = (x * z) + (y * y) + (z * x);
 
     try expect(dot_res == test_res);
-
     print(" [PASS]\n", .{});
 }
