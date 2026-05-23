@@ -13,6 +13,20 @@ pub fn Vec3(comptime T: type) type {
             };
         }
 
+        pub fn zero(self: *Self) void {
+            self.x = @as(T, 0);
+            self.y = @as(T, 0);
+            self.z = @as(T, 0);
+        }
+
+        pub fn Zero() Vec3(T) {
+            return .{
+                .x = @as(T, 0),
+                .y = @as(T, 0),
+                .z = @as(T, 0),
+            };
+        }
+
         pub fn add(self: *Self, other: Vec3(T)) void {
             self.x += other.x;
             self.y += other.y;

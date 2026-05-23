@@ -16,6 +16,28 @@ test "Vec3.init()" {
     print(" [PASS]\n", .{});
 }
 
+test "Vec3.zero()" {
+    print("TEST: Vec3.zero()", .{});
+    var v1 = Vec3(T).init(x, y, z);
+
+    v1.zero();
+
+    try expect(v1.x == 0);
+    try expect(v1.y == 0);
+    try expect(v1.z == 0);
+    print(" [PASS]\n", .{});
+}
+
+test "Vec3.Zero()" {
+    print("TEST: Vec3.Zero()", .{});
+    const v1 = Vec3(T).Zero();
+
+    try expect(v1.x == 0);
+    try expect(v1.y == 0);
+    try expect(v1.z == 0);
+    print(" [PASS]\n", .{});
+}
+
 test "Vec3.add()" {
     print("TEST: Vec3.add()", .{});
     var v1 = Vec3(T).init(x, y, z);
