@@ -7,9 +7,6 @@ pub fn Vec3(comptime T: type) type {
         y: T,
         z: T,
 
-        //I was thinking maybe we could use optionals here? though idk how they even work
-        //like x, ?y, ?z and if only x then it fills with just the x but...
-        //i think maybe better being explicit
         pub fn init(x: T, y: T, z: T) Vec3(T) {
             return .{
                 .x = x,
@@ -18,11 +15,15 @@ pub fn Vec3(comptime T: type) type {
             };
         }
 
-        pub fn init_fill(num: T) Vec3(T) {
-            return Vec3(T).init(num, num, num);
+        pub fn init_fill(value: T) Vec3(T) {
+            return Vec3(T).init(value, value, value);
         }
 
-        pub fn equals(self: Self, other: Vec3(T)) bool {
+        pub fn equals_addr(self: *const Self, other: *const Vec3(T)) bool {
+            return self == other;
+        }
+
+        pub fn equals_value(self: Self, other: Vec3(T)) bool {
             return (self.x == other.x and self.y == other.y and self.z == other.z);
         }
 
@@ -97,26 +98,26 @@ pub fn Vec3(comptime T: type) type {
         }
 
         pub fn div(self: *Self, other: Vec3(T)) void {
-            self.x = @divFloor(self.x, other.x);
-            self.y = @divFloor(self.y, other.y);
-            self.z = @divFloor(self.z, other.z);
+            self.x /= other.x;
+            self.y /= other.y;
+            self.z /= other.z;
         }
 
         pub fn Div(v1: Vec3(T), v2: Vec3(T)) Vec3(T) {
             return Vec3(T).init(
-                @divFloor(v1.x, v2.x),
-                @divFloor(v1.y, v2.y),
-                @divFloor(v1.z, v2.z),
+                v1.x / v2.x,
+                v1.y / v2.y,
+                v1.z / v2.z,
             );
+        }
+
+        pub fn dot(self: Self, other: Vec3(T)) Vec3(T) {
+            return (self.x * other.x) + (self.y * other.y) + (self.z * other.z);
         }
 
         pub fn Dot(v1: Vec3(T), v2: Vec3(T)) T {
             return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
         }
-
-        //for these below we dont actually want to modify the vec3 its being called on ever right?
-        //like v.nomalize() surely shouldnt change v to be the normalized version of v.. or should it..?
-        //and if this is the case, are the second variants even necessary here? idk bruh im tweaking out
 
         pub fn length(self: Self) f32 {
             return math.sqrt((self.x * self.x) + (self.y * self.y) + (self.z * self.z));
@@ -126,8 +127,8 @@ pub fn Vec3(comptime T: type) type {
             return math.sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
         }
 
-        pub fn normalize(self: Self) Vec3(T) {
-            return Vec3(T).Div(self, Vec3(T).init_fill(self.length()));
+        pub fn normalize(self: *Self) void {
+            self.div(Vec3(T).init_fill(self.length()));
         }
 
         pub fn Normalize(v: Vec3(T)) Vec3(T) {

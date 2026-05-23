@@ -19,22 +19,36 @@ test "Vec3.init()" {
     print(" [PASS]\n", .{});
 }
 
+test "Vec3.equals_addr()" {
+    print("TEST: Vec3.equals_addr()", .{});
+    const v = Vec3(T).init(x, y, z);
+
+    //const test_res: bool = (v.x == v.x and v.y == v.y and v.z == v.z);
+    const test_res = &v == &v;
+
+    try expect(test_res == (v.equals_addr(&v)));
+    print(" [PASS]\n", .{});
+}
+
+test "Vec3.equals_value()" {
+    print("TEST: Vec3.equals_value()", .{});
+    const v1 = Vec3(T).init(x, y, z);
+    const v2 = Vec3(T).init(x, y, z);
+
+    //const test_res: bool = (v.x == v.x and v.y == v.y and v.z == v.z);
+    const test_res = v1.x == v2.x and v1.y == v2.y and v1.z == v2.z;
+
+    try expect(test_res == v1.equals_value(v2));
+    print(" [PASS]\n", .{});
+}
+
 test "Vec3.init_fill()" {
     print("TEST: Vec3.init_fill()", .{});
 
     const v = Vec3(T).init_fill(x);
     const test_vec = Vec3(T).init(x, x, x);
 
-    try expect(v.equals(test_vec));
-    print(" [PASS]\n", .{});
-}
-test "Vec3.equals()" {
-    print("TEST: Vec3.equals()", .{});
-    const v = Vec3(T).init(x, y, z);
-
-    const test_res: bool = (v.x == v.x and v.y == v.y and v.z == v.z);
-
-    try expect(test_res == (v.equals(v)));
+    try expect(v.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -45,7 +59,7 @@ test "Vec3.zero()" {
     v.zero();
     const test_vec = Vec3(T).init(0, 0, 0);
 
-    try expect(v.equals(test_vec));
+    try expect(v.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -55,7 +69,7 @@ test "Vec3.Zero()" {
     const v = Vec3(T).Zero();
     const test_vec = Vec3(T).init(0, 0, 0);
 
-    try expect(v.equals(test_vec));
+    try expect(v.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -67,7 +81,7 @@ test "Vec3.add()" {
     v1.add(v2);
     const test_vec = Vec3(T).init(x + z, y + y, z + x);
 
-    try expect(v1.equals(test_vec));
+    try expect(v1.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -79,7 +93,7 @@ test "Vec3.Add()" {
     const res_vec = Vec3(T).Add(v1, v2);
     const test_vec = Vec3(T).init(x + z, y + y, z + x);
 
-    try expect(res_vec.equals(test_vec));
+    try expect(res_vec.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -91,7 +105,7 @@ test "Vec3.sub()" {
     v1.sub(v2);
     const test_vec = Vec3(T).init(x - z, y - y, z - x);
 
-    try expect(v1.equals(test_vec));
+    try expect(v1.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -103,7 +117,7 @@ test "Vec3.Sub()" {
     const res_vec = Vec3(T).Sub(v1, v2);
     const test_vec = Vec3(T).init(x - z, y - y, z - x);
 
-    try expect(res_vec.equals(test_vec));
+    try expect(res_vec.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -115,7 +129,7 @@ test "Vec3.scale()" {
     v.scale(factor);
     const test_vec = Vec3(T).init(x * factor, y * factor, z * factor);
 
-    try expect(v.equals(test_vec));
+    try expect(v.equals_value(test_vec));
 
     print(" [PASS]\n", .{});
 }
@@ -128,7 +142,7 @@ test "Vec3.Scale()" {
     const res_vec = Vec3(T).Scale(v, factor);
     const test_vec = Vec3(T).init(x * factor, y * factor, z * factor);
 
-    try expect(res_vec.equals(test_vec));
+    try expect(res_vec.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -140,7 +154,7 @@ test "Vec3.mul()" {
     v1.mul(v2);
     const test_vec = Vec3(T).init(x * z, y * y, z * x);
 
-    try expect(v1.equals(test_vec));
+    try expect(v1.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -152,7 +166,7 @@ test "Vec3.Mul()" {
     const res_vec = Vec3(T).Mul(v1, v2);
     const test_vec = Vec3(T).init(x * z, y * y, z * x);
 
-    try expect(res_vec.equals(test_vec));
+    try expect(res_vec.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -163,12 +177,12 @@ test "Vec3.div()" {
 
     v1.div(v2);
     const test_vec = Vec3(T).init(
-        @divFloor(x, z),
-        @divFloor(y, y),
-        @divFloor(z, x),
+        x / z,
+        y / y,
+        z / x,
     );
 
-    try expect(v1.equals(test_vec));
+    try expect(v1.equals_value(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -179,12 +193,24 @@ test "Vec3.Div()" {
 
     const res_vec = Vec3(T).Div(v1, v2);
     const test_vec = Vec3(T).init(
-        @divFloor(x, z),
-        @divFloor(y, y),
-        @divFloor(z, x),
+        x / z,
+        y / y,
+        z / x,
     );
 
-    try expect(res_vec.equals(test_vec));
+    try expect(res_vec.equals_value(test_vec));
+    print(" [PASS]\n", .{});
+}
+
+test "Vec3.dot()" {
+    print("TEST: Vec3.dot()", .{});
+    const v1 = Vec3(T).init(x, y, z);
+    const v2 = Vec3(T).init(z, y, x);
+
+    const dot_res = v1.Dot(v2);
+    const test_res = (x * z) + (y * y) + (z * x);
+
+    try expect(dot_res == test_res);
     print(" [PASS]\n", .{});
 }
 
@@ -215,7 +241,7 @@ test "Vec3().Length()" {
     print("TEST: Vec3.Length()", .{});
     const v = Vec3(T).init(x, y, z);
 
-    const len = Vec3(T).length(v);
+    const len = Vec3(T).Length(v);
     const test_res = math.sqrt((x * x) + (y * y) + (z * z));
 
     try expect(len == test_res);
@@ -224,12 +250,27 @@ test "Vec3().Length()" {
 
 test "Vec3.normalize()" {
     print("TEST: Vec3.normalize()", .{});
-    const v = Vec3(T).init(x, y, z);
+    var v = Vec3(T).init(x, y, z);
 
-    const norm = v.normalize();
-    const test_res = Vec3(T).Div(v, Vec3(T).init_fill(v.length()));
+    //print("{},{},{}\n", .{ v.x, v.y, v.z });
+    //const len = Vec3(T).Length(v);
+    //print("{}\n", .{len});
+    //const vec_len = Vec3(T).init_fill(len);
+    //print("{},{},{}\n", .{ vec_len.x, vec_len.y, vec_len.z });
+    //print("dividing {},{},{} by {},{},{}\n", .{ v.x, v.y, v.z, len, len, len });
+    //const vec_div_v_len = Vec3(T).Div(v, vec_len);
+    //print("{},{},{}\n", .{ vec_div_v_len.x, vec_div_v_len.y, vec_div_v_len.z });
+    //print("\n\n", .{});
+    v.normalize();
+    //print("\nnorm: {},{},{}\n", .{ v.x, v.y, v.z });
 
-    try expect(norm.equals(test_res));
+    const test_vec = Vec3(T).init(x, y, z);
+    const len = Vec3(T).Length(test_vec);
+    const vec_len = Vec3(T).init_fill(len);
+    const test_res = Vec3(T).Div(test_vec, vec_len);
+    //print("result: {},{},{}\n", .{ test_res.x, test_res.y, test_res.z });
+
+    try expect(v.equals_value(test_res));
     print(" [PASS]\n", .{});
 }
 
@@ -240,6 +281,6 @@ test "Vec3.Normalize()" {
     const norm = Vec3(T).Normalize(v);
     const test_res = Vec3(T).Div(v, Vec3(T).init_fill(v.length()));
 
-    try expect(norm.equals(test_res));
+    try expect(norm.equals_value(test_res));
     print(" [PASS]\n", .{});
 }
