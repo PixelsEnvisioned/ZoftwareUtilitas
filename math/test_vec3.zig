@@ -30,32 +30,32 @@ test "Vec3.init_fill()" {
 }
 test "Vec3.equals()" {
     print("TEST: Vec3.equals()", .{});
-    const v1 = Vec3(T).init(x, y, z);
+    const v = Vec3(T).init(x, y, z);
 
-    const test_res: bool = (v1.x == v1.x and v1.y == v1.y and v1.z == v1.z);
+    const test_res: bool = (v.x == v.x and v.y == v.y and v.z == v.z);
 
-    try expect(test_res == (v1.equals(v1)));
+    try expect(test_res == (v.equals(v)));
     print(" [PASS]\n", .{});
 }
 
 test "Vec3.zero()" {
     print("TEST: Vec3.zero()", .{});
-    var v1 = Vec3(T).init(x, y, z);
+    var v = Vec3(T).init(x, y, z);
 
-    v1.zero();
+    v.zero();
     const test_vec = Vec3(T).init(0, 0, 0);
 
-    try expect(v1.equals(test_vec));
+    try expect(v.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
 test "Vec3.Zero()" {
     print("TEST: Vec3.Zero()", .{});
 
-    const v1 = Vec3(T).Zero();
+    const v = Vec3(T).Zero();
     const test_vec = Vec3(T).init(0, 0, 0);
 
-    try expect(v1.equals(test_vec));
+    try expect(v.equals(test_vec));
     print(" [PASS]\n", .{});
 }
 
@@ -202,9 +202,9 @@ test "Vec3.Dot()" {
 
 test "Vec3().length()" {
     print("TEST: Vec3.length()", .{});
-    const v1 = Vec3(T).init(x, y, z);
+    const v = Vec3(T).init(x, y, z);
 
-    const len = v1.length();
+    const len = v.length();
     const test_res = math.sqrt((x * x) + (y * y) + (z * z));
 
     try expect(len == test_res);
@@ -213,9 +213,9 @@ test "Vec3().length()" {
 
 test "Vec3().Length()" {
     print("TEST: Vec3.Length()", .{});
-    const v1 = Vec3(T).init(x, y, z);
+    const v = Vec3(T).init(x, y, z);
 
-    const len = Vec3(T).length(v1);
+    const len = Vec3(T).length(v);
     const test_res = math.sqrt((x * x) + (y * y) + (z * z));
 
     try expect(len == test_res);
@@ -224,10 +224,10 @@ test "Vec3().Length()" {
 
 test "Vec3.normalize()" {
     print("TEST: Vec3.normalize()", .{});
-    const v1 = Vec3(T).init(x, y, z);
+    const v = Vec3(T).init(x, y, z);
 
-    const norm = v1.normalize();
-    const test_res = Vec3(T).Div(v1, Vec3(T).init_fill(v1.length()));
+    const norm = v.normalize();
+    const test_res = Vec3(T).Div(v, Vec3(T).init_fill(v.length()));
 
     try expect(norm.equals(test_res));
     print(" [PASS]\n", .{});
@@ -235,10 +235,10 @@ test "Vec3.normalize()" {
 
 test "Vec3.Normalize()" {
     print("TEST: Vec3.Normalize()", .{});
-    const v1 = Vec3(T).init(x, y, z);
+    const v = Vec3(T).init(x, y, z);
 
-    const norm = Vec3(T).Normalize(v1);
-    const test_res = Vec3(T).Div(v1, Vec3(T).init_fill(v1.length()));
+    const norm = Vec3(T).Normalize(v);
+    const test_res = Vec3(T).Div(v, Vec3(T).init_fill(v.length()));
 
     try expect(norm.equals(test_res));
     print(" [PASS]\n", .{});
