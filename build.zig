@@ -26,6 +26,11 @@ pub fn build(b: *std.Build) void {
         "test_filter",
         "Skip tests that don't match the specified filters",
     ) orelse &.{};
+    const custom_runner = b.option(
+        bool,
+        "custom_runner",
+        "Whether to use a custom test runner (default: true)",
+    ) orelse true;
     const test_step = b.step("test", "Run unit tests");
     const unit_tests = b.addTest(.{
         .root_module = b.createModule(.{
@@ -33,10 +38,10 @@ pub fn build(b: *std.Build) void {
             .target = target,
         }),
         .filters = test_filters,
-        .test_runner = .{
+        .test_runner = if (custom_runner) .{
             .path = b.path("test_runner.zig"),
             .mode = .simple,
-        },
+        } else null,
     });
     unit_tests.root_module.addImport("ZW_utils", lib.root_module);
     const run_unit_tests = b.addRunArtifact(unit_tests);
