@@ -104,10 +104,11 @@ pub fn Vec3(comptime T: type) type {
 
         pub fn div(self: *Self, other: Vec3(T)) void {
             if (@typeInfo(T) == .int) {
-                _print("\nDisclaimer don't use on ints that might not divide\n", .{});
+                _print("\nDisclaimer: Beware when using on ints that might not divide\n", .{});
                 self.x = @divExact(self.x, other.x);
                 self.y = @divExact(self.y, other.y);
                 self.z = @divExact(self.z, other.z);
+                return;
             }
 
             self.x /= other.x;
@@ -117,7 +118,7 @@ pub fn Vec3(comptime T: type) type {
 
         pub fn Div(v1: Vec3(T), v2: Vec3(T)) Vec3(T) {
             if (@typeInfo(T) == .int) {
-                _print("\nDisclaimer don't use on ints that might not divide\n", .{});
+                _print("\nDisclaimer: Beware when using on ints that might not divide\n", .{});
                 return Vec3(T).init(
                     @divExact(v1.x, v2.x),
                     @divExact(v1.y, v2.y),

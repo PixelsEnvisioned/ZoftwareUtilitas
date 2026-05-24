@@ -182,6 +182,22 @@ test "Vec3.div()" {
     );
 
     try expect(v1.equals(&test_vec));
+
+    const xi: i32 = 1;
+    const yi: i32 = 2;
+    const zi: i32 = 3;
+    var v1i = Vec3(i32).init(xi, yi, zi);
+    const v2i = Vec3(i32).init(xi, yi, zi);
+
+    v1i.div(v2i);
+    const test_veci = Vec3(i32).init(
+        xi / xi,
+        yi / yi,
+        zi / zi,
+    );
+    test_veci.print();
+
+    try expect(v1i.equals(&test_veci));
     print(" [PASS]\n", .{});
 }
 
@@ -198,6 +214,21 @@ test "Vec3.Div()" {
     );
 
     try expect(res_vec.equals(&test_vec));
+
+    const xi: i32 = 1;
+    const yi: i32 = 2;
+    const zi: i32 = 3;
+    const v1i = Vec3(i32).init(xi, yi, zi);
+    const v2i = Vec3(i32).init(xi, yi, zi);
+
+    const res_veci = Vec3(i32).Div(v1i, v2i);
+    const test_veci = Vec3(i32).init(
+        xi / xi,
+        yi / yi,
+        zi / zi,
+    );
+
+    try expect(res_veci.equals(&test_veci));
     print(" [PASS]\n", .{});
 }
 
@@ -228,23 +259,12 @@ test "Vec3.normalize()" {
     print("TEST: Vec3.normalize()", .{});
     var v = Vec3(T).init(x, y, z);
 
-    //print("{},{},{}\n", .{ v.x, v.y, v.z });
-    //const len = Vec3(T).Length(v);
-    //print("{}\n", .{len});
-    //const vec_len = Vec3(T).init_fill(len);
-    //print("{},{},{}\n", .{ vec_len.x, vec_len.y, vec_len.z });
-    //print("dividing {},{},{} by {},{},{}\n", .{ v.x, v.y, v.z, len, len, len });
-    //const vec_div_v_len = Vec3(T).Div(v, vec_len);
-    //print("{},{},{}\n", .{ vec_div_v_len.x, vec_div_v_len.y, vec_div_v_len.z });
-    //print("\n\n", .{});
     v.normalize();
-    //print("\nnorm: {},{},{}\n", .{ v.x, v.y, v.z });
 
     const test_vec = Vec3(T).init(x, y, z);
     const len = test_vec.length();
     const vec_len = Vec3(T).init_fill(len);
     const test_res = Vec3(T).Div(test_vec, vec_len);
-    //print("result: {},{},{}\n", .{ test_res.x, test_res.y, test_res.z });
 
     try expect(v.equals(&test_res));
     print(" [PASS]\n", .{});
