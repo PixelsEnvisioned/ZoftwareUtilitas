@@ -111,20 +111,12 @@ pub fn Vec3(comptime T: type) type {
             );
         }
 
-        pub fn dot(self: Self, other: Vec3(T)) Vec3(T) {
+        pub fn dot(self: Self, other: Vec3(T)) T {
             return (self.x * other.x) + (self.y * other.y) + (self.z * other.z);
-        }
-
-        pub fn Dot(v1: Vec3(T), v2: Vec3(T)) T {
-            return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
         }
 
         pub fn length(self: Self) f32 {
             return math.sqrt((self.x * self.x) + (self.y * self.y) + (self.z * self.z));
-        }
-
-        pub fn Length(v: Vec3(T)) f32 {
-            return math.sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
         }
 
         pub fn normalize(self: *Self) void {
