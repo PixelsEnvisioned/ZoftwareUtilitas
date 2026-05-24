@@ -195,7 +195,6 @@ test "Vec3.div()" {
         yi / yi,
         zi / zi,
     );
-    test_veci.print();
 
     try expect(v1i.equals(&test_veci));
     print(" [PASS]\n", .{});
