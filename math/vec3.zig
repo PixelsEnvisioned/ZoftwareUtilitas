@@ -1,4 +1,5 @@
 const math = @import("std").math;
+const _print = @import("std").debug.print;
 
 pub fn Vec3(comptime T: type) type {
     return struct {
@@ -17,6 +18,10 @@ pub fn Vec3(comptime T: type) type {
 
         pub fn init_fill(value: T) Vec3(T) {
             return Vec3(T).init(value, value, value);
+        }
+
+        pub fn print(self: Self) void {
+            _print("{{.x={}, .y={}, .z={}}}\n", .{ self.x, self.y, self.z });
         }
 
         pub fn equals(self: *const Self, other: *const Vec3(T)) bool {
