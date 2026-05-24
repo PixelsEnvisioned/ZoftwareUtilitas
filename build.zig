@@ -21,12 +21,18 @@ pub fn build(b: *std.Build) void {
 
     b.installArtifact(lib);
 
+    const test_filters = b.option(
+        []const []const u8,
+        "test_filter",
+        "Skip tests that don't match the specified filters",
+    ) orelse &.{};
     const test_step = b.step("test", "Run unit tests");
     const unit_tests = b.addTest(.{
         .root_module = b.createModule(.{
             .root_source_file = b.path("tests/main.zig"),
             .target = target,
         }),
+        .filters = test_filters,
     });
     unit_tests.root_module.addImport("ZW_utils", lib.root_module);
     const run_unit_tests = b.addRunArtifact(unit_tests);
