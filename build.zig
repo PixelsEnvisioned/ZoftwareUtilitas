@@ -33,6 +33,10 @@ pub fn build(b: *std.Build) void {
             .target = target,
         }),
         .filters = test_filters,
+        .test_runner = .{
+            .path = b.path("test_runner.zig"),
+            .mode = .simple,
+        },
     });
     unit_tests.root_module.addImport("ZW_utils", lib.root_module);
     const run_unit_tests = b.addRunArtifact(unit_tests);
