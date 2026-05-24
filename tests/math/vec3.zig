@@ -1,9 +1,10 @@
-const Vec3 = @import("vec3.zig").Vec3;
+const Vec3 = @import("ZW_utils").math.Vec3;
 const expect = @import("std").testing.expect;
 const print = @import("std").debug.print;
 const math = @import("std").math;
 
 const T = f32;
+
 const x: T = 1;
 const y: T = 2;
 const z: T = 3;

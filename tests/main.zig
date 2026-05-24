@@ -1,5 +1,3 @@
-const expect = @import("std").testing.expect;
-
-test "test the build file is working" {
-    try expect(1 == 1);
+comptime {
+    _ = @import("math/vec3.zig");
 }
