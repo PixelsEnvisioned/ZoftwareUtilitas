@@ -19,12 +19,12 @@ pub fn Vec3(comptime T: type) type {
             return Vec3(T).init(value, value, value);
         }
 
-        pub fn equals_addr(self: *const Self, other: *const Vec3(T)) bool {
-            return self == other;
+        pub fn equals(self: *const Self, other: *const Vec3(T)) bool {
+            return (self.x == other.x and self.y == other.y and self.z == other.z);
         }
 
-        pub fn equals_value(self: Self, other: Vec3(T)) bool {
-            return (self.x == other.x and self.y == other.y and self.z == other.z);
+        pub fn equals_addr(self: *const Self, other: *const Vec3(T)) bool {
+            return self == other;
         }
 
         pub fn zero(self: *Self) void {
