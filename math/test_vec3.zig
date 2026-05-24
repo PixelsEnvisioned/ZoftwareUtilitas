@@ -19,8 +19,8 @@ test "Vec3.init()" {
     print(" [PASS]\n", .{});
 }
 
-test "Vec3.equals(&)" {
-    print("TEST: Vec3.equals(&)", .{});
+test "Vec3.equals()" {
+    print("TEST: Vec3.equals()", .{});
     const v1 = Vec3(T).init(x, y, z);
     const v2 = Vec3(T).init(x, y, z);
 
